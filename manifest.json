@@ -1,0 +1,12 @@
+{
+  "id": "/MASSNGER/",
+  "name": "MASSNGER",
+  "short_name": "MASSNGER",
+  "description": "تطبيق تواصل ودردشة",
+  "start_url": "/MASSNGER/",
+  "scope": "/MASSNGER/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait"
+}
