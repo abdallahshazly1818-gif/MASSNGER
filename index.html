@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>MASSNGER</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #080808;
+    --card: #151515;
+    --card2: #202020;
+    --gold: #d6b46a;
+    --text: #ffffff;
+    --muted: #999999;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+header {
+    padding: 22px 18px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--gold);
+}
+
+.icon-btn {
+    border: 1px solid #333;
+    background: var(--card);
+    color: white;
+    border-radius: 50%;
+    width: 43px;
+    height: 43px;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.search {
+    margin: 5px 18px 20px;
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid #292929;
+    border-radius: 14px;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+}
+
+.search input {
+    background: transparent;
+    color: white;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+}
+
+.section-title {
+    margin: 20px 18px 14px;
+    display: flex;
+   
