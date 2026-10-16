@@ -14,9 +14,9 @@
   "categories": ["social", "communication"],
   "icons": [
     {
-      "src": "/MASSNGER/Gemini_Generated_Image_3x0rmx3x0rmx3x0r.jpeg",
-      "sizes": "any",
-      "type": "image/jpeg",
+      "src": "/MASSNGER/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
