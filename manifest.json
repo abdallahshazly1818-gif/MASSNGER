@@ -3,27 +3,24 @@
   "name": "MASSNGER - Black Luxury Messaging App",
   "short_name": "MASSNGER",
   "description": "تطبيق تواصل ودردشة بتصميم أسود فخم",
-  "start_url": "/MASSNGER/",
-  "scope": "/MASSNGER/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#080808",
   "theme_color": "#080808",
   "orientation": "portrait",
   "lang": "ar",
   "dir": "rtl",
-  "categories": [
-    "social",
-    "communication"
-  ],
+  "categories": ["social", "communication"],
   "icons": [
     {
-      "src": "/MASSNGER/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/MASSNGER/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
