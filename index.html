@@ -4,81 +4,694 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080808">
-    <link rel="manifest" href="/MASSNGER/manifest.json">
+<meta name="description" content="MASSNGER - تطبيق تواصل ودردشة">
+<link rel="manifest" href="./manifest.json">
 <title>MASSNGER</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root {
+  --bg: #080808;
+  --card: #151515;
+  --gold: #d4af37;
+  --text: #fff;
+  --muted: #999;
+  --border: #292929;
 }
 
-:root {
-    --bg: #080808;
-    --card: #151515;
-    --card2: #202020;
-    --gold: #d6b46a;
-    --text: #ffffff;
-    --muted: #999999;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
 header {
-    padding: 22px 18px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 16px;
+  background: #101010;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 
 .logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: 1px;
+  color: var(--gold);
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-.logo span {
-    color: var(--gold);
+button {
+  cursor: pointer;
 }
 
-.icon-btn {
-    border: 1px solid #333;
-    background: var(--card);
-    color: white;
-    border-radius: 50%;
-    width: 43px;
-    height: 43px;
-    font-size: 19px;
-    cursor: pointer;
+.header-btn {
+  background: var(--card);
+  color: var(--gold);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.page {
+  display: none;
+  padding-bottom: 90px;
+}
+
+.page.active {
+  display: block;
 }
 
 .search {
-    margin: 5px 18px 20px;
-    padding: 14px;
-    background: var(--card);
-    border: 1px solid #292929;
-    border-radius: 14px;
-    color: var(--muted);
-    display: flex;
-    gap: 10px;
+  padding: 15px;
 }
 
-.search input {
-    background: transparent;
-    color: white;
-    border: none;
-    outline: none;
-    width: 100%;
-    font-size: 15px;
+.search input,
+.form-input {
+  width: 100%;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  outline: none;
 }
 
-.section-title {
-    margin: 20px 18px 14px;
-    display: flex;
-   
+.search input:focus,
+.form-input:focus {
+  border-color: var(--gold);
+}
+
+.title {
+  padding: 18px 16px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.stories {
+  display: flex;
+  gap: 15px;
+  padding: 0 15px 20px;
+  overflow-x: auto;
+}
+
+.story {
+  min-width: 65px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.story-icon {
+  width: 58px;
+  height: 58px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 7px;
+  font-size: 24px;
+  background: #202020;
+}
+
+.story small {
+  color: #ccc;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #252525;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  background: #252525;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+}
+
+.chat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-info h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.chat-info p {
+  color: var(--muted);
+  font-size: 13px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  background: #101010;
+  border-top: 1px solid var(--border);
+  padding: 10px 2px;
+  z-index: 10;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.nav-btn b {
+  font-size: 21px;
+}
+
+.nav-btn.active {
+  color: var(--gold);
+}
+
+.gold-btn {
+  background: var(--gold);
+  color: #080808;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: bold;
+}
+
+.setting-item {
+  margin: 10px 15px;
+  padding: 17px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.setting-item span {
+  color: var(--gold);
+}
+
+.empty {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+#chatScreen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 30;
+  flex-direction: column;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  background: #151515;
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-header .person {
+  flex: 1;
+}
+
+.chat-header h3 {
+  font-size: 16px;
+}
+
+.chat-header p {
+  font-size: 12px;
+  color: #71cf8a;
+  margin-top: 5px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  max-width: 82%;
+  width: fit-content;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: #222;
+  overflow-wrap: anywhere;
+}
+
+.message.mine {
+  align-self: flex-start;
+  background: #463a16;
+  border: 1px solid #65521d;
+}
+
+.message img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.chat-compose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: #151515;
+  border-top: 1px solid var(--border);
+}
+
+.chat-compose input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 20px;
+  color: white;
+}
+
+.chat-compose button {
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  background: var(--gold);
+  color: #111;
+  font-size: 18px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body.light {
+  --bg: #f5f5f5;
+  --card: #fff;
+  --text: #151515;
+  --muted: #666;
+  --border: #ddd;
+}
+
+body.light header,
+body.light .bottom-nav,
+body.light .chat-header,
+body.light .chat-compose {
+  background: #fff;
+}
+
+body.light .search input,
+body.light .form-input,
+body.light .chat-compose input[type="text"] {
+  color: #111;
+}
+
+@media (min-width: 700px) {
+  body {
+    max-width: 600px;
+    margin: auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MASSNGER</div>
+  <button class="header-btn" onclick="showPage('settings')">⚙️</button>
+</header>
+
+<main>
+  <section id="home" class="page active">
+    <div class="search">
+      <input id="searchInput" placeholder="🔎 ابحث عن محادثة..." oninput="searchChats()">
+    </div>
+
+    <div class="title">القصص ✨</div>
+    <div class="stories">
+      <div class="story" onclick="addStory()">
+        <div class="story-icon">＋</div>
+        <small>قصتي</small>
+      </div>
+      <div class="story">
+        <div class="story-icon">👤</div>
+        <small>أحمد</small>
+      </div>
+      <div class="story">
+        <div class="story-icon">🌙</div>
+        <small>محمد</small>
+      </div>
+      <div class="story">
+        <div class="story-icon">⭐</div>
+        <small>سارة</small>
+      </div>
+      <div class="story">
+        <div class="story-icon">🦁</div>
+        <small>علي</small>
+      </div>
+    </div>
+
+    <div class="title">المحادثات</div>
+    <div id="chatList"></div>
+  </section>
+
+  <section id="calls" class="page">
+    <div class="title">المكالمات 📞</div>
+    <div class="empty">
+      <div style="font-size:45px">📞</div>
+      <p style="margin:15px">سجل المكالمات هيظهر هنا.</p>
+      <p>المكالمات الحقيقية تحتاج إلى خادم واتصال صوتي أو مرئي.</p>
+    </div>
+  </section>
+
+  <section id="contacts" class="page">
+    <div class="title">جهات الاتصال 👥</div>
+    <div class="setting-item">
+      <div>👤 أحمد</div>
+      <button class="gold-btn" onclick="openChat('أحمد','👤')">مراسلة</button>
+    </div>
+    <div class="setting-item">
+      <div>🌙 محمد</div>
+      <button class="gold-btn" onclick="openChat('محمد','🌙')">مراسلة</button>
+    </div>
+    <div class="setting-item">
+      <div>⭐ سارة</div>
+      <button class="gold-btn" onclick="openChat('سارة','⭐')">مراسلة</button>
+    </div>
+  </section>
+
+  <section id="settings" class="page">
+    <div class="title">الإعدادات ⚙️</div>
+
+    <div class="setting-item">
+      <div>الوضع الداكن 🌙</div>
+      <button class="gold-btn" onclick="toggleTheme()">تغيير</button>
+    </div>
+
+    <div class="setting-item">
+      <div>الملف الشخصي 👤</div>
+      <button class="gold-btn" onclick="editProfile()">تعديل</button>
+    </div>
+
+    <div class="setting-item">
+      <div>الاسم الحالي</div>
+      <span id="profileName">مستخدم MASSNGER</span>
+    </div>
+
+    <div class="setting-item">
+      <div>حول التطبيق</div>
+      <span>الإصدار 1.0</span>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showPage('home',this)">
+    <b>💬</b><span>الدردشات</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('calls',this)">
+    <b>📞</b><span>المكالمات</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('contacts',this)">
+    <b>👥</b><span>الأصدقاء</span>
+  </button>
+  <button class="nav-btn" onclick="showPage('settings',this)">
+    <b>⚙️</b><span>الإعدادات</span>
+  </button>
+</nav>
+
+<div id="chatScreen">
+  <div class="chat-header">
+    <button class="header-btn" onclick="closeChat()">➜</button>
+    <div class="avatar" id="chatAvatar">👤</div>
+    <div class="person">
+      <h3 id="chatName">المحادثة</h3>
+      <p>محادثة محلية تجريبية</p>
+    </div>
+    <button class="header-btn" onclick="alert('المكالمات الحقيقية تحتاج إلى إعداد خادم خاص.')">📞</button>
+    <button class="header-btn" onclick="alert('مكالمات الفيديو تحتاج إلى خادم اتصال مرئي.')">🎥</button>
+  </div>
+
+  <div id="messages" class="messages"></div>
+
+  <div class="chat-compose">
+    <button onclick="document.getElementById('imageInput').click()">📎</button>
+    <input id="imageInput" type="file" accept="image/*" class="hidden" onchange="sendImage(event)">
+    <input id="messageInput" type="text" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendMessage()">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script>
+const defaultContacts = [
+  {name:"أحمد", icon:"👤", last:"أهلاً بيك في MASSNGER"},
+  {name:"محمد", icon:"🌙", last:"إزيك يا صديقي؟"},
+  {name:"سارة", icon:"⭐", last:"أهلاً وسهلاً"}
+];
+
+let contacts = JSON.parse(localStorage.getItem("massngerContacts") || "null") || defaultContacts;
+let currentContact = null;
+let allMessages = JSON.parse(localStorage.getItem("massngerMessages") || "{}");
+
+function saveData() {
+  localStorage.setItem("massngerContacts", JSON.stringify(contacts));
+  localStorage.setItem("massngerMessages", JSON.stringify(allMessages));
+}
+
+function renderChats() {
+  const list = document.getElementById("chatList");
+  list.innerHTML = "";
+
+  contacts.forEach(contact => {
+    const item = document.createElement("div");
+    item.className = "chat-item";
+    item.dataset.name = contact.name;
+
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.textContent = contact.icon;
+
+    const info = document.createElement("div");
+    info.className = "chat-info";
+
+    const name = document.createElement("h3");
+    name.textContent = contact.name;
+
+    const preview = document.createElement("p");
+    preview.textContent = contact.last || "ابدأ المحادثة";
+
+    info.append(name, preview);
+    item.append(avatar, info);
+    item.onclick = () => openChat(contact.name, contact.icon);
+    list.appendChild(item);
+  });
+}
+
+function showPage(id, button) {
+  document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+
+  if (button) {
+    button.classList.add("active");
+  } else {
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      if (btn.textContent.includes("الإعدادات") && id === "settings") btn.classList.add("active");
+    });
+  }
+}
+
+function searchChats() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+
+  document.querySelectorAll(".chat-item").forEach(item => {
+    item.style.display = item.dataset.name.toLowerCase().includes(query) ? "flex" : "none";
+  });
+}
+
+function openChat(name, icon) {
+  currentContact = name;
+  document.getElementById("chatName").textContent = name;
+  document.getElementById("chatAvatar").textContent = icon;
+  document.getElementById("chatScreen").style.display = "flex";
+  renderMessages();
+}
+
+function closeChat() {
+  document.getElementById("chatScreen").style.display = "none";
+  renderChats();
+}
+
+function renderMessages() {
+  const box = document.getElementById("messages");
+  box.innerHTML = "";
+
+  const messages = allMessages[currentContact] || [];
+
+  messages.forEach(message => {
+    const bubble = document.createElement("div");
+    bubble.className = "message" + (message.mine ? " mine" : "");
+
+    if (message.type === "image") {
+      const img = document.createElement("img");
+      img.src = message.content;
+      img.alt = "صورة مرسلة";
+      bubble.appendChild(img);
+    } else {
+      bubble.textContent = message.content;
+    }
+
+    box.appendChild(bubble);
+  });
+
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendMessage() {
+  if (!currentContact) return;
+
+  const input = document.getElementById("messageInput");
+  const content = input.value.trim();
+
+  if (!content) return;
+
+  if (!allMessages[currentContact]) allMessages[currentContact] = [];
+
+  allMessages[currentContact].push({
+    content: content,
+    mine: true,
+    type: "text"
+  });
+
+  const contact = contacts.find(c => c.name === currentContact);
+  if (contact) contact.last = content;
+
+  input.value = "";
+  saveData();
+  renderMessages();
+  renderChats();
+}
+
+function sendImage(event) {
+  const file = event.target.files[0];
+  if (!file || !currentContact) return;
+
+  if (file.size > 2 * 1024 * 1024) {
+    alert("اختر صورة أصغر من 2 ميجابايت.");
+    event.target.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function() {
+    if (!allMessages[currentContact]) allMessages[currentContact] = [];
+
+    allMessages[currentContact].push({
+      content: reader.result,
+      mine: true,
+      type: "image"
+    });
+
+    const contact = contacts.find(c => c.name === currentContact);
+    if (contact) contact.last = "📷 صورة";
+
+    saveData();
+    renderMessages();
+    renderChats();
+  };
+
+  reader.readAsDataURL(file);
+  event.target.value = "";
+}
+
+function addStory() {
+  alert("إضافة القصص تحتاج إلى تخزين الصور ونظام مشاركة بين المستخدمين.");
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  localStorage.setItem(
+    "massngerTheme",
+    document.body.classList.contains("light") ? "light" : "dark"
+  );
+}
+
+function editProfile() {
+  const current = localStorage.getItem("massngerProfile") || "مستخدم MASSNGER";
+  const name = prompt("اكتب اسمك الجديد:", current);
+
+  if (name && name.trim()) {
+    localStorage.setItem("massngerProfile", name.trim());
+    document.getElementById("profileName").textContent = name.trim();
+  }
+}
+
+const savedName = localStorage.getItem("massngerProfile");
+if (savedName) {
+  document.getElementById("profileName").textContent = savedName;
+}
+
+if (localStorage.getItem("massngerTheme") === "light") {
+  document.body.classList.add("light");
+}
+
+renderChats();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("./sw.js").catch(function(error) {
+      console.log("Service worker:", error);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
